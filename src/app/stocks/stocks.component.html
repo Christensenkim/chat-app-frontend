@@ -1,0 +1,63 @@
+<div class="row vh-100" style="padding-top: 30px; padding-bottom: 20px">
+  <div class="col-4">
+    <div class="card vh-100">
+      <div class="card-header">
+        <h1>
+          Stocks
+        </h1>
+      </div>
+      <div class="card-body">
+        <div>
+          <ul>
+            <li *ngFor="let stock of stocks" (click)="stockDetails(stock)">
+              {{stock.name}} Price: {{stock.value}}DKK
+            </li>
+            <div class="row justify-content-end">
+              <button type="button" routerLink="create" class="btn btn-success">Create</button>
+            </div>
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="col-8">
+      <div class="card h-100">
+        <div class="card-header">
+          <h1>
+            Selected Stock
+          </h1>
+        </div>
+        <div *ngIf="!stock" class="row justify-content-center">
+          <h1>
+            Select a Stock!
+          </h1>
+        </div>
+        <div *ngIf="stock">
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <h1>
+                {{stock.name}}
+              </h1>
+            </div>
+            <div class="row justify-content-center">
+              <h2>
+                Description:
+                {{stock.description}}
+              </h2>
+            </div>
+            <div class="row justify-content-center">
+              <h2>
+                <input  type="number" [formControl]="stockPriceFc">DKK
+              </h2>
+            </div>
+            <div class="row justify-content-end">
+              <button type="button" (click)="updateStock()" class="btn btn-success">Update</button>
+              <button type="button" (click)="deleteStock()" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+

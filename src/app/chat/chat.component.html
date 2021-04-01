@@ -1,0 +1,77 @@
+<div *ngIf="error$ | async as error" style="color: darkred">
+  {{error}}
+</div>
+
+<div class="row vh-100" style="padding-top: 30px; padding-bottom: 20px" *ngIf="chatClient">
+  <div class="col-4">
+    <div class="card h-100">
+      <div class="card-header">
+        Clients Online
+      </div>
+      <div class="card-body">
+        <div *ngIf="clients$ | async as clients">
+          <ul>
+            <li *ngFor="let client of clients">
+              {{client.nickName}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-8">
+    <div class="card h-100">
+      <div class="card-header">
+        <h5>Hello {{chatClient.nickName}}</h5>
+      </div>
+      <div class="card-body">
+        <h4 *ngFor="let chatMessage of messages">
+          <div class="card flex-row flex-wrap">
+            <div class="card-header border-0">
+              <img src="//placehold.it/40" alt="">
+              <h6 class="card-title">{{chatMessage.client.nickName}}</h6>
+            </div>
+            <div class="card-block px-2">
+              <p class="card-text">{{chatMessage.message}}</p>
+            </div>
+          </div>
+        </h4>
+      </div>
+      <div class="card-footer">
+        <form class="form-inline">
+          <div class="input-group flex-fill">
+            <input type="text" class="form-control" [formControl]="messageFc" placeholder="Write message here..">
+            <button type="button" (click)="sendMessage()" class="btn btn-primary">Send Message</button>
+          </div>
+        </form>
+        <div style="height: 10px">
+          <span
+            *ngIf="clientsTyping.length > 0"
+            style="color: burlywood; font-size: 10px;">
+            Clients Typing:
+            <span *ngFor="let client of clientsTyping; let i = index">
+          {{client.nickName}}
+              <span *ngIf="clientsTyping.length - 1 > i">, </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row align-items-center justify-content-center vh-100" *ngIf="!chatClient">
+  <div class="card">
+    <div class="card-body">
+      <h1>Welcome to Chatsies</h1>
+      <form>
+        <div class="form-group">
+          <label for="nickNameFc">Enter Nickname:</label>
+          <input type="text" [formControl]="nickNameFc" id="nickNameFc">
+        </div>
+        <div class="row justify-content-end">
+          <button type="button" (click)="sendNickName()" class="btn btn-success">Send</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
