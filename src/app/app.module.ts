@@ -5,6 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {Socket, SocketIoConfig, SocketIoModule} from 'ngx-socket-io';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxsModule } from '@ngxs/store';
+import {environment} from '../environments/environment';
+import {StockState} from './stocks/state/stock.state';
 
 @Injectable()
 export class SocketChat extends Socket {
@@ -28,7 +31,10 @@ export class SocketStock extends Socket {
     BrowserModule,
     AppRoutingModule,
     SocketIoModule,
-    NgbModule
+    NgbModule,
+    NgxsModule.forRoot([], {
+      developmentMode: !environment.production
+    })
   ],
   providers: [SocketChat, SocketStock],
   bootstrap: [AppComponent]

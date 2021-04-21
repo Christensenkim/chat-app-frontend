@@ -9,7 +9,7 @@
       <div class="card-body">
         <div>
           <ul>
-            <li *ngFor="let stock of stocks" (click)="stockDetails(stock)">
+            <li *ngFor="let stock of stocks | async" (click)="stockDetails(stock)">
               {{stock.name}} Price: {{stock.value}}DKK
             </li>
             <div class="row justify-content-end">
